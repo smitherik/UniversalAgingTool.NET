@@ -1,24 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿/*-----------------------------------------------------------------------------
+    Author     Erik Smith
+    Created    2020-01-21
+    Purpose    This class represents a custom mutable data structure that is
+               designed to be used as an accumlator while building the aged 
+               dataset. 
+-------------------------------------------------------------------------------
+    Modification History
+  
+    01/21/2020  Erik W. Smith
+    [1:eof]
+        Initial development.
+-----------------------------------------------------------------------------*/
 namespace universalAgingTool
 {
     public class AgedDataStore
     {
-        public float Day0To30    { get; set; }
-        public float Day31To60   { get; set; }
-        public float Day61To90   { get; set; }
-        public float Day91To120  { get; set; }
-        public float Day121To150 { get; set; }
-        public float Day151To180 { get; set; }
-        public float Day181To270 { get; set; }
-        public float Day271To360 { get; set; }
-        public float Day361Plus  { get; set; }
+        // fields represent each 'bucket' in the aging schedule
+        public float Day0To30    { get; private set; }
+        public float Day31To60   { get; private set; }
+        public float Day61To90   { get; private set; }
+        public float Day91To120  { get; private set; }
+        public float Day121To150 { get; private set; }
+        public float Day151To180 { get; private set; }
+        public float Day181To270 { get; private set; }
+        public float Day271To360 { get; private set; }
+        public float Day361Plus  { get; private set; }
 
         public AgedDataStore()
+        {
+            // explicitly setting an empty structure to 0 to avoid runtime errors.
+            Zero();
+        }
+
+        public void Zero()
         {
             this.Day0To30    = 0; // bucket 0
             this.Day31To60   = 0; // bucket 1
@@ -36,16 +50,16 @@ namespace universalAgingTool
             switch (bucket)
             {
                 case 0:
-                    this.Day0To30 += value;
+                    this.Day0To30    += value;
                     break;
                 case 1:
-                    this.Day31To60 += value;
+                    this.Day31To60   += value;
                     break;
                 case 2:
-                    this.Day61To90 += value;
+                    this.Day61To90   += value;
                     break;
                 case 3:
-                    this.Day91To120 += value;
+                    this.Day91To120  += value;
                     break;
                 case 4:
                     this.Day121To150 += value;
@@ -60,8 +74,15 @@ namespace universalAgingTool
                     this.Day271To360 += value;
                     break;
                 default:
-                    this.Day361Plus += value;
-                    break;
+                    if (bucket >= 8)
+                    {
+                        this.Day361Plus += value;
+                        break;
+                    }
+                    else
+                    {
+                        break;
+                    }
             }
         }
 

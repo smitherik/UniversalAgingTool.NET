@@ -64,6 +64,7 @@
     <Compile Include="ViewAgedData.Designer.cs">
       <DependentUpon>ViewAgedData.cs</DependentUpon>
     </Compile>
+    <Compile Include="ResultsDataStruct.cs" />
     <EmbeddedResource Include="AgingTool.resx">
       <DependentUpon>AgingTool.cs</DependentUpon>
     </EmbeddedResource>

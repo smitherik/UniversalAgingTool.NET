@@ -1,4 +1,19 @@
-﻿using System.Windows.Forms;
+﻿/*------------------------------------------------------------------------------
+    Author     Erik Smith
+    Created    2020-01-21
+    Purpose    this is designed to be used such that any specific actions
+               that need to occur upon reaching an error state are contained
+               within the methods of this class. 
+-------------------------------------------------------------------------------
+    Modification History
+  
+    01/21/2020  Erik W. Smith
+    [1:eof]
+        Basically a place holder for message box calls for the time being.
+        Class is being included to support future error state action 
+        development.
+-----------------------------------------------------------------------------*/
+using System.Windows.Forms;
 
 namespace universalAgingTool
 {

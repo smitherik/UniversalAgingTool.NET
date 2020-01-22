@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*------------------------------------------------------------------------------
+    Author     Erik Smith
+    Created    2020-01-21
+    Purpose    Application entry point.
+-------------------------------------------------------------------------------
+    Modification History
+  
+    01/21/2020  Erik W. Smith 
+    [1:eof]
+        Initial development.
+-----------------------------------------------------------------------------*/
+using System;
 using System.Windows.Forms;
 
 namespace universalAgingTool

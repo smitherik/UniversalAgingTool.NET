@@ -1,4 +1,17 @@
-﻿namespace universalAgingTool
+﻿/*------------------------------------------------------------------------------
+    Author     Erik Smith
+    Created    2020-01-21
+    Purpose    Class to be used to hold all the pertanent information for
+               accessing and controling an Excel COM object. All file access is
+               intended to be performed through this class fields and methods. 
+-------------------------------------------------------------------------------
+    Modification History
+  
+    01/21/2020  Erik W. Smith
+    [1:eof]
+        Initial development.
+-----------------------------------------------------------------------------*/
+namespace universalAgingTool
 {
     public class ExcelDataFile
     {
@@ -10,31 +23,22 @@
 
         public ExcelDataFile()
         {
+            // upon instanciation attach an excel process/thread to be used for the 
+            // remainder of the time the application remaines open. 
             this.App = new Microsoft.Office.Interop.Excel.Application();
         }
 
         public void Shutdown()
         {
-            try
+            if (!(Workbook is null))
             {
-                this.Workbook.Close(false);
+                Workbook.Close(false);
+                // COM object release required to not leave file locked. 
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(Workbook);
             }
-            catch (System.NullReferenceException)
-            {
-                /* do not let the system crash if no workbook is currently set
-                 * during the shutting down of the application
-                 */
-            }
-            try
-            {
-                this.App.Quit();
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(App);
-            }
-            catch
-            {
-                System.Windows.Forms.MessageBox.Show("If you are seeing this then I clearly did something wrong... please contact Erik S.");
-            }
+            this.App.Quit();
+            // COM object release required to not leave file locked. 
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(App);
         }
 
         public void OpenWorkbook(string file)
@@ -49,16 +53,14 @@
 
         public void Reset()
         {
-            this.DataSet = default;
-            this.Worksheet = default;
+            this.DataSet    = default;
+            this.Worksheet  = default;
             this.Worksheets = default;
-            try
+            if (!(Workbook is null))
             {
-                this.Workbook.Close();
+                Workbook.Close(false);
+                // COM object release required to not leave file locked. 
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(Workbook);
-            }
-            catch (System.NullReferenceException)
-            {
             }
             this.Workbook = default;
 
